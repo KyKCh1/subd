@@ -23,7 +23,7 @@ string ToString(const int* array, const size_t size_);
  * @param array массив.
  * @param size_ размер массива.
   * @param value множитель.
-  * @return массив, помноженный на множитель.
+  * @return указатель на массив, помноженный на множитель.
  */
 int* factor(int* array, const size_t size_,int value);
 
@@ -39,15 +39,10 @@ int main()
 
 
   try{
-    size_t sizeArr;
 
-    sizeArr = GetSize("Input size array: ");
+    size_t  size = GetSize("Input size array: ");
 
-    size_t size = sizeArr;
-    int* NewArray = nullptr;
-
-
-      NewArray = InputArray(size);
+    int* NewArray = InputArray(size);
 
       cout << ToString(NewArray, size);
 
@@ -57,15 +52,17 @@ int main()
       cout<<"Input factor: ";
       cin>>value;
 
-      factor(NewArray,size,value);
+      int* TwoArray = factor(NewArray,size,value);
 
-      cout << ToString(NewArray, size);
+      cout << ToString(TwoArray, size);
 
 
-      if (NewArray != nullptr)
+      if (NewArray != nullptr && TwoArray != nullptr)
     {
        delete[] NewArray;
+       delete[] TwoArray;
        NewArray = nullptr;
+       TwoArray = nullptr;
     }
 
   }
@@ -73,7 +70,7 @@ int main()
         std::cout << "Ошибка: " << e.what() << std::endl;
         return 1;
   }
-  
+
   return 0;
 }
 
@@ -87,9 +84,8 @@ size_t GetSize(const std::string& message)
     {
         throw std::out_of_range("Incorrect size. Value has to be greater or equal zero.");
     }
-    size_t newSize = static_cast<size_t>(size);
-  
-    return newSize;
+
+    return static_cast<size_t>(size);
 }
 
 int* InputArray(const size_t size_){
@@ -119,8 +115,10 @@ string ToString(const int* array, const size_t size_)
 
 int* factor(int* array, const size_t size_,int value)
 {
+  int* NewArray = new int[size_];
+  
   for (size_t index = 0; index < size_; index++){
-    array[index] = array[index]*value;
+      NewArray[index] = array[index]*value;
   }
-  return array;
+  return NewArray;
 }
