@@ -57,7 +57,7 @@ int main()
       cout << ToString(TwoArray, size);
 
 
-      if (NewArray != nullptr && TwoArray != nullptr)
+      if (NewArray != nullptr || TwoArray != nullptr)
     {
        delete[] NewArray;
        delete[] TwoArray;
