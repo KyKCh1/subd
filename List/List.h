@@ -254,8 +254,8 @@ void List<T>::popFront() {
 	}
 	else if (this->getSize() == 2) {
 		delete this->head;
-		this->tail->previous = nullptr;
 		this->head = this->tail;
+		this->tail->previous = this->head;
 		--this->size;
 		return;
 	}
