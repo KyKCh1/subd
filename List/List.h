@@ -228,8 +228,8 @@ void List<T>::popBack() {
 	}
 	else if (this->getSize() == 2) {
 		delete this->tail;
-		this->head->next = this->tail;
 		this->tail = this->head;
+		this->head->next = this->tail;
 		--this->size;
 		return;
 	}
